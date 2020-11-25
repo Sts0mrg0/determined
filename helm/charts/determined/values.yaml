@@ -62,12 +62,12 @@ checkpointStorage:
   # Comment out if not using `shared_fs`. Users are strongly discouraged
   # from using ``shared_fs`` for storage beyond initial testing as most
   # Kubernetes cluster nodes do not have a shared file system.
-  type: shared_fs
-  hostPath: /checkpoints
+  #type: shared_fs
+  #hostPath: /checkpoints
 
   # For storing in gcs.
-  # type: gcs
-  # bucket: <bucket_name>
+  type: gcs
+  bucket: det-ci
 
   # For storing in s3.
   # type: s3
@@ -82,7 +82,7 @@ checkpointStorage:
 # GPUs. Distributed tasks with sizes that are not divisible by `maxSlotsPerPod` are never scheduled.
 # If you have a cluster of different size nodes (e.g., 4 and 8 GPUs per node), set the `maxSlotsPerPod`
 # to the smallest common denominator.
-maxSlotsPerPod:
+maxSlotsPerPod: 4
 
 # Memory and CPU requirements for the master instance should be adjusted for scale.
 masterCpuRequest: "2"
@@ -112,8 +112,8 @@ taskContainerDefaults:
   # CPU tasks (cpu notebooks, tensorboards, zero slot commands). If a docker image is defined
   # for an individual task, that image will replace the default one that is defined here.
   # If specifying a default image, both GPU and CPU default images must be defined.
-  # cpuImage:
-  # gpuImage:
+  cpuImage: determinedai/environments:py-3.6.9-pytorch-1.4-tf-1.15-cpu-0f2001a
+  gpuImage: determinedai/scratch:cuda11-tf1
 
 # Install Determined enterprise edition.
 enterpriseEdition: false
