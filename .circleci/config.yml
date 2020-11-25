@@ -1252,6 +1252,9 @@ jobs:
       - run-e2e-tests:
           mark: <<parameters.mark>>
           master-host: ${MASTER_HOST}
+      - terminate-gke-cluster:
+          cluster-id: ${CLUSTER_ID}
+          region: <<parameters.region>>
       - slack/status:
           fail_only: True
           only_for_branches: master
